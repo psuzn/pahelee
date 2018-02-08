@@ -11,6 +11,7 @@ from OpenGL.GLUT import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from lib import *
+from constants import *
 import sys
 import time 
 import random
