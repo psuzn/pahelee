@@ -17,11 +17,25 @@ import time
 import random
 
 
+grid=[]
+current=None
+visitedGrids=[]
+
+def initializeGrid():
+    global grid,current
+    for i in range(0,GRID_COLUMNS):
+        for j in range(0,GRID_ROWS):
+            if j is 0:
+                grid.append([Cell(i,j)])
+            else:
+                grid[i].append(Cell(i,j))
+    current=grid[random.randint(0,GRID_COLUMNS-1)][random.randint(0,GRID_ROWS-1)]
+    current.visited=True
 
 def loop():
     pass
 
-    
+
 def display(val=None):
     glutTimerFunc(int(1000/FPS), display,1)
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
@@ -41,5 +55,6 @@ def initializeOPENGL():
     glutMainLoop()
 
 def main():
+    initializeGrid()
     initializeOPENGL()
     return
