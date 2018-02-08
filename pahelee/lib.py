@@ -3,6 +3,9 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from constants import *
 
+def setColor(colorList):
+    glColor3f(colorList[0],colorList[1],colorList[2])
+
 def line(x1,y1,x2,y2): # draw a line from (x1,y1) to (x2,y2)
     glLineWidth(WALLWIDTH)
     glBegin(GL_LINES)
