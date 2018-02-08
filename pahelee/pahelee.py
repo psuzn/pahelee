@@ -18,9 +18,27 @@ import random
 
 
 
+def loop():
+    pass
 
+    
+def display(val=None):
+    glutTimerFunc(int(1000/FPS), display,1)
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+    loop()
+    glutSwapBuffers()
+    return
 
-
+def initializeOPENGL():
+    glutInit(sys.argv)
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)
+    glutInitWindowSize(600, 600)
+    glutCreateWindow(TITLE)
+    updateConstants()
+    glMatrixMode(GL_PROJECTION)
+    glutDisplayFunc(display)
+    glutReshapeFunc(resize)
+    glutMainLoop()
 
 def main():
     initializeOPENGL()
