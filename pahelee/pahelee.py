@@ -15,3 +15,13 @@ from constants import *
 import sys
 import time 
 import random
+
+
+
+
+
+
+
+def main():
+    initializeOPENGL()
+    return
