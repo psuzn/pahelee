@@ -36,7 +36,76 @@ def initializeGrid():
     current=grid[random.randint(0,GRID_COLUMNS-1)][random.randint(0,GRID_ROWS-1)]
     current.visited=True
 
+def visit(cel):
+    cel.visited=True
+    return
+
+def removeWallBetween(current,nxt):
+    if current.x>nxt.x:
+        removeWall(current,LEFT)
+        removeWall(nxt,RIGHT)
+
+    elif current.x < nxt.x:
+        removeWall(current,RIGHT)
+        removeWall(nxt,LEFT)
+
+    elif current.y > nxt.y:
+        removeWall(current,BOTTOM)
+        removeWall(nxt,TOP)
+    
+    elif current.y < nxt.y:
+        removeWall(current,TOP)
+        removeWall(nxt,BOTTOM)
+    return
+        
+def removeWall(cel,wall):
+    cel.wall[wall]=False
+    return
+
+def next(current):
+    neighbours=[]
+    if current.y+1 <GRID_ROWS:
+        if not  grid[current.x][current.y+1].visited : # TOP CELL
+            neighbours.append(grid[current.x][current.y+1])
+
+    if current.x+1 < GRID_COLUMNS:
+        if not  grid[current.x+1][current.y].visited : #RIGHT
+            neighbours.append(grid[current.x+1][current.y])
+
+    if current.y-1 >= 0:
+        if not  grid[current.x][current.y-1].visited : # BOTTOM
+            neighbours.append(grid[current.x][current.y-1])
+
+    if current.x-1 >= 0:
+        if not  grid[current.x-1][current.y].visited :# LEFT
+            neighbours.append(grid[current.x-1][current.y])
+
+    neighboursCount=len(neighbours)
+    # print("Current ({},{})".format(current.x,current.y))
+    # print("neighbourd")
+    # for cels in neighbours:
+    #     print("{},{}".format(cels.x,cels.y))
+
+    if neighboursCount > 0:
+        choosed=neighbours[random.randint(0,neighboursCount-1)]
+        #print("choosed ({},{})".format(choosed.x,choosed.y))
+        return choosed
+    else:
+        #print("no naughbour to choose")
+        return None
+
+
 def loop():
+    global current,grid
+    nxt=next(current)
+    if nxt:
+        visitedGrids.append(current)
+        removeWallBetween(current,nxt)
+        current=nxt
+        visit(current)
+    elif len(visitedGrids)>0:
+        current=visitedGrids.pop()
+
     showGrid()
     return
 
