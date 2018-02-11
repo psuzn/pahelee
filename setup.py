@@ -30,7 +30,7 @@ setup(
       'Intended Audience :: Developers',
       'Programming Language :: Python :: 3',
     ],
-    keywords='maze,generation',
+    keywords='mazegeneration,opengl,pahelee',
     packages=find_packages(exclude=['docs', 'tests*']),
     include_package_data=True,
     author='Sujan Poudel',
