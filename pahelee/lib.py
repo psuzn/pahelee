@@ -1,7 +1,7 @@
 from OpenGL.GLUT import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from constants import *
+from pahelee.constants import *
 
 def setColor(colorList):
     glColor3f(colorList[0],colorList[1],colorList[2])

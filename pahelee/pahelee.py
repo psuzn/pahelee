@@ -11,8 +11,8 @@ from OpenGL.GLUT import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from PIL import Image
-from lib import *
-from constants import *
+from pahelee.lib import *
+from pahelee.constants import *
 import sys,os
 from time import gmtime, strftime
 import random
@@ -22,7 +22,7 @@ GRID_WIDTH=8
 GRID_HEIGHT=8
 IMAGE_FORMAT="png"
 IMAGENAME=strftime("%Y-%m-%d_%H:%M:%S", gmtime())+"pahelee"
-DESTINATION="images"
+DESTINATION=os.path.expanduser("~")
 # 
 
 grid=[]
@@ -148,7 +148,6 @@ def showGrid():
     current.show(backgroundColor=CURRENT_BACKGROUND)
 
 def resize( width, height):
-    global WINDOW_HEIGHT,WINDOW_WIDTH
     glViewport(0,0,width,height)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
@@ -160,7 +159,8 @@ def resize( width, height):
 def initializeOPENGL():
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)
-    glutInitWindowSize(600, 600)
+    glutInitWindowSize(GRID_COLUMNS*GRID_WIDTH*5,GRID_ROWS*GRID_HEIGHT*5)
+    glutInitWindowPosition(350,120)
     glutCreateWindow(TITLE)
     updateConstants()
     glMatrixMode(GL_PROJECTION)
