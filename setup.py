@@ -36,5 +36,9 @@ setup(
     author='Sujan Poudel',
     install_requires=install_requires,
     dependency_links=dependency_links,
-    author_email='Spoudel347@gmail.com'
+    author_email='Spoudel347@gmail.com',
+     entry_points={
+        'console_scripts': [
+            'pahelee =pahelee.pahelee:main'
+        ]}
 )
