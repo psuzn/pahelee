@@ -10,21 +10,24 @@ Copyright (c) 2018 https://github.com/psuzn
 from OpenGL.GLUT import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
+from PIL import Image
 from lib import *
 from constants import *
-import sys
-import time 
+import sys,os
+from time import gmtime, strftime
 import random
 
 # 
 GRID_WIDTH=8
 GRID_HEIGHT=8
+IMAGE_FORMAT="png"
+IMAGENAME=strftime("%Y-%m-%d_%H:%M:%S", gmtime())+"pahelee"
+DESTINATION="images"
 # 
 
 grid=[]
 current=None
 visitedGrids=[]
-
 def initializeGrid():
     global grid,current
     for i in range(0,GRID_COLUMNS):
@@ -39,6 +42,16 @@ def initializeGrid():
 def visit(cel):
     cel.visited=True
     return
+def saveImage():
+    name="{}.{}".format(IMAGENAME,IMAGE_FORMAT)
+    x, y, width, height = glGetIntegerv(GL_VIEWPORT)
+    data = ( GLubyte * (3*width*height) )(0)
+    glPixelStorei(GL_PACK_ALIGNMENT, 1)
+    glReadPixels(x, y, width, height, GL_RGB,GL_UNSIGNED_BYTE,data)
+    image = Image.frombytes(mode="RGB", size=(width, height), data=data)     
+    image = image.transpose(Image.FLIP_TOP_BOTTOM)
+    image.save(os.path.join(DESTINATION,name), format=IMAGE_FORMAT) 
+    print("Image saved as {}".format(os.path.join(DESTINATION,name)))
 
 def removeWallBetween(current,nxt):
     if current.x>nxt.x:
@@ -105,7 +118,10 @@ def loop():
         visit(current)
     elif len(visitedGrids)>0:
         current=visitedGrids.pop()
-
+    else:
+        showGrid()
+        saveImage()
+        exit()
     showGrid()
     return
 
